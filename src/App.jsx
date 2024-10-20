@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import * as React from 'react'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap'
-
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap'
+import { Link as RouterLink } from 'react-router-dom'
 
 function Header(args) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -12,7 +12,9 @@ function Header(args) {
   return (
     <div className='container-lg'>
       <Navbar {...args}>
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <RouterLink to="/hello">
+          reactstrap
+        </RouterLink>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
@@ -28,7 +30,7 @@ function Header(args) {
               <DropdownToggle nav caret>
                 Options
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu>
                 <DropdownItem>Option 1</DropdownItem>
                 <DropdownItem>Option 2</DropdownItem>
                 <DropdownItem divider />
@@ -44,7 +46,6 @@ function Header(args) {
 }
 
 function App() {
-
   return (
     <>
       <header className='fixed-top left-0 vw-100 d-flex justify-content-center'>
