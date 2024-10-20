@@ -8,38 +8,40 @@ function Header(args) {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <div className='container-lg'>
-            <Navbar {...args} expand='md' >
-                <RouterLink to="/hello">
-                    reactstrap
-                </RouterLink>
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav className="me-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/components/">Components</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="https://github.com/reactstrap/reactstrap">
-                                GitHub
-                            </NavLink>
-                        </NavItem>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Options
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem>Option 1</DropdownItem>
-                                <DropdownItem>Option 2</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>Reset</DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </Nav>
-                    <NavbarText>Simple Text</NavbarText>
-                </Collapse>
-            </Navbar>
-        </div>
+        <header className='fixed-top left-0 vw-100 d-flex justify-content-center'>
+            <div className='container-lg'>
+                <Navbar {...args} expand='md' >
+                    <RouterLink to="/">
+                        Ecommerce
+                    </RouterLink>
+                    <NavbarToggler onClick={toggle} />
+                    <Collapse isOpen={isOpen} navbar>
+                        <Nav className="me-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/components/">Components</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="https://github.com/reactstrap/reactstrap">
+                                    GitHub
+                                </NavLink>
+                            </NavItem>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Options
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem>Option 1</DropdownItem>
+                                    <DropdownItem>Option 2</DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem>Reset</DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </Nav>
+                        <NavbarText>Simple Text</NavbarText>
+                    </Collapse>
+                </Navbar>
+            </div>
+        </header>
     );
 }
 
