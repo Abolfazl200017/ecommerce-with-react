@@ -109,7 +109,7 @@ function Home() {
                     <div className='row' >
                         {jeweleries.map((j, index) => {
                             return <div key={index} className='col-3' >
-                                <Card jewelery={j} customStyle={{ color: "#3f2405" }} />
+                                <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
                             </div>
                         })}
                     </div>

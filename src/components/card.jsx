@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 function ProductCard({ jewelery, customStyle }) {
     const { title, image } = jewelery
-    const { color } = customStyle
+    const { color, isList } = customStyle
     return <Card
         style={{
             width: '100%',
+            height: isList ? '100%' : 'auto',
             color: color,
         }}
     >
@@ -17,16 +18,15 @@ function ProductCard({ jewelery, customStyle }) {
                 className='object-fit-contain p-1'
             />
         </div>
-        <CardBody>
+        <CardBody className='d-flex flex-column justify-content-between'>
             <CardTitle tag="h6">
                 {title ? title : 'title'}
             </CardTitle>
-            {/* <CardText>
-                {description}
-            </CardText> */}
-            <Button>
-                Button
-            </Button>
+            <div>
+                <Button>
+                    Button
+                </Button>
+            </div>
         </CardBody>
     </Card>
 }
@@ -45,6 +45,7 @@ ProductCard.propTypes = {
     }).isRequired,
     customStyle: PropTypes.shape({
         color: PropTypes.string,
+        isList: PropTypes.bool,
     })
 };
 
