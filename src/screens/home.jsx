@@ -6,6 +6,9 @@ import img4 from '../assets/images/tags/four.png'
 import img5 from '../assets/images/tags/five.png'
 import img6 from '../assets/images/tags/six.jpg'
 
+import banner1 from '../assets/images/banner/one.webp'
+import banner2 from '../assets/images/banner/two.webp'
+
 function ServiceList() {
     const list = [
         {
@@ -54,6 +57,17 @@ function ServiceList() {
     </ul>
 }
 
+function Banner() {
+    const list = [banner1, banner2]
+
+    return <div className='row'>
+        {list.map((item, index) => (
+            <div key={index} className='mt-3 col-12 col-md-6 px-1' >
+                <img src={item} className='w-100' />
+            </div>
+        ))}
+    </div>
+}
 function Home() {
 
     return <>
@@ -61,6 +75,7 @@ function Home() {
             <Slider />
             <div className='container-lg' >
                 <ServiceList />
+                <Banner />
             </div>
         </main>
         <footer>

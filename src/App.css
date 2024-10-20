@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1536px;
   margin: 0 auto;
   text-align: center;
 }
@@ -9,7 +9,7 @@ a {
 }
 main {
   margin-top: 56px;
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
 }
 .carousel {
   aspect-ratio: 2/1;
