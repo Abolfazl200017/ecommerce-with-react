@@ -1,35 +1,47 @@
-import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
+import { Card, CardBody, CardTitle, Button } from 'reactstrap'
+import PropTypes from 'prop-types';
 
-
-function ProductCard() {
+function ProductCard({ jewelery }) {
+    const { title, image } = jewelery
 
     return <Card
         style={{
             width: '100%'
         }}
     >
-        <img
-            alt="Sample"
-            src="https://picsum.photos/300/200"
-        />
+        <div className='ratio ratio-1x1'>
+            <img
+                alt="Sample"
+                src={image}
+                className='object-fit-contain p-1'
+            />
+        </div>
         <CardBody>
-            <CardTitle tag="h5">
-                Card title
+            <CardTitle tag="h6">
+                {title ? title : 'title'}
             </CardTitle>
-            <CardSubtitle
-                className="mb-2 text-muted"
-                tag="h6"
-            >
-                Card subtitle
-            </CardSubtitle>
-            <CardText>
-                Some quick example text to build on the card title and make up the bulk of the card‘s content.
-            </CardText>
+            {/* <CardText>
+                {description}
+            </CardText> */}
             <Button>
                 Button
             </Button>
         </CardBody>
     </Card>
 }
+
+ProductCard.propTypes = {
+    jewelery: PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        id: PropTypes.number,
+        rating: PropTypes.shape({
+            rate: PropTypes.number,
+            count: PropTypes.number,
+        }),
+        price: PropTypes.number,
+        image: PropTypes.string,
+    }).isRequired,
+};
 
 export default ProductCard

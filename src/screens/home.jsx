@@ -14,10 +14,12 @@ import * as React from 'react'
 import Card from '../components/card'
 
 function useCallForJewelery() {
+    const [state, setState] = React.useState([])
     const callBack = React.useCallback(() => {
         client('products/category/jewelery').then(
             (response) => {
                 console.log('response of jewelery', response)
+                setState(response)
             }
         )
     }, [])
@@ -25,6 +27,8 @@ function useCallForJewelery() {
         callBack()
         return () => { }
     }, [callBack])
+
+    return state
 }
 
 function ServiceList() {
@@ -88,6 +92,7 @@ function Banner() {
 }
 function Home() {
     useCallForJewelery()
+    const jeweleries = useCallForJewelery()
 
     return <>
         <main className='w-100 min-vh-100'>
@@ -98,10 +103,16 @@ function Home() {
             </div>
             <div className='pt-3 pb-5 my-5 bg-gold' >
                 <div className='container-lg mx-auto' >
-                    <div className='my-2 fs-5 fw-bold d-flex align-items-center' style={{ color: '#3f2405' }} >
+                    <div className='my-2 fs-1 fw-bold d-flex align-items-center' style={{ color: '#3f2405' }} >
                         Best sails for <span style={{ fontSize: '3rem' }}>💎</span>
                     </div>
-                    <Card />
+                    <div className='row' >
+                        {jeweleries.map((j, index) => {
+                            return <div key={index} className='col-3' >
+                                <Card jewelery={j} />
+                            </div>
+                        })}
+                    </div>
                 </div>
             </div>
         </main>
