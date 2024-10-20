@@ -1,12 +1,13 @@
 import { Card, CardBody, CardTitle, Button } from 'reactstrap'
 import PropTypes from 'prop-types';
 
-function ProductCard({ jewelery }) {
+function ProductCard({ jewelery, customStyle }) {
     const { title, image } = jewelery
-
+    const { color } = customStyle
     return <Card
         style={{
-            width: '100%'
+            width: '100%',
+            color: color,
         }}
     >
         <div className='ratio ratio-1x1'>
@@ -42,6 +43,9 @@ ProductCard.propTypes = {
         price: PropTypes.number,
         image: PropTypes.string,
     }).isRequired,
+    customStyle: PropTypes.shape({
+        color: PropTypes.string,
+    })
 };
 
 export default ProductCard
