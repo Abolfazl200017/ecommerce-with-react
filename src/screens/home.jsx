@@ -9,6 +9,24 @@ import img6 from '../assets/images/tags/six.jpg'
 import banner1 from '../assets/images/banner/one.webp'
 import banner2 from '../assets/images/banner/two.webp'
 
+import { client } from '../utils/api-client'
+import * as React from 'react'
+import Card from '../components/card'
+
+function useCallForJewelery() {
+    const callBack = React.useCallback(() => {
+        client('products/category/jewelery').then(
+            (response) => {
+                console.log('response of jewelery', response)
+            }
+        )
+    }, [])
+    React.useEffect(() => {
+        callBack()
+        return () => { }
+    }, [callBack])
+}
+
 function ServiceList() {
     const list = [
         {
@@ -69,6 +87,7 @@ function Banner() {
     </div>
 }
 function Home() {
+    useCallForJewelery()
 
     return <>
         <main className='w-100 min-vh-100'>
@@ -76,6 +95,14 @@ function Home() {
             <div className='container-lg' >
                 <ServiceList />
                 <Banner />
+            </div>
+            <div className='pt-3 pb-5 my-5 bg-gold' >
+                <div className='container-lg mx-auto' >
+                    <div className='my-2 fs-5 fw-bold d-flex align-items-center' style={{ color: '#3f2405' }} >
+                        Best sails for <span style={{ fontSize: '3rem' }}>💎</span>
+                    </div>
+                    <Card />
+                </div>
             </div>
         </main>
         <footer>
