@@ -1,16 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import { Home } from './screens/home'
 
 function App() {
   return (
-    <>
-      <main>
-        this is main
-      </main>
-      <footer>
-        this is footer
-      </footer>
-    </>
+    <Home />
   )
 }
 

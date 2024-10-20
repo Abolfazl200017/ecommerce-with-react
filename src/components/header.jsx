@@ -8,7 +8,7 @@ function Header(args) {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <header className='fixed-top left-0 vw-100 d-flex justify-content-center'>
+        <header className='fixed-top left-0 vw-100 d-flex justify-content-center bg-white z-10'>
             <div className='container-lg'>
                 <Navbar {...args} expand='md' >
                     <RouterLink to="/">
