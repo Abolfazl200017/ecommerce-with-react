@@ -13,19 +13,17 @@ import { client } from '../utils/api-client'
 import * as React from 'react'
 import Card from '../components/card'
 
-function useCallForJewelery() {
+function useStateWithApiKey(endpoint) {
     const [state, setState] = React.useState([])
     const callBack = React.useCallback(() => {
-        client('products/category/jewelery').then(
+        client(endpoint).then(
             (response) => {
-                console.log('response of jewelery', response)
                 setState(response)
             }
         )
-    }, [])
+    })
     React.useEffect(() => {
         callBack()
-        return () => { }
     }, [callBack])
 
     return state
@@ -91,8 +89,8 @@ function Banner() {
     </div>
 }
 function Home() {
-    useCallForJewelery()
-    const jeweleries = useCallForJewelery()
+    const jeweleries = useStateWithApiKey('products/category/jewelery')
+    const products = useStateWithApiKey('products')
 
     return <>
         <main className='w-100 min-vh-100'>
@@ -106,13 +104,22 @@ function Home() {
                     <div className='my-2 fs-1 fw-bold d-flex align-items-center' style={{ color: '#3f2405' }} >
                         Best sails for <span style={{ fontSize: '3rem' }}>💎</span>
                     </div>
-                    <div className='row' >
+                    <div className='row overflow-x-hidden flex-nowrap' >
                         {jeweleries.map((j, index) => {
-                            return <div key={index} className='col-3' >
+                            return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap' >
                                 <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
                             </div>
                         })}
                     </div>
+                </div>
+            </div>
+            <div>
+                <div className='row overflow-x-hidden' >
+                    {products.map((j, index) => {
+                        return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap mt-3' >
+                            <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
+                        </div>
+                    })}
                 </div>
             </div>
         </main>
