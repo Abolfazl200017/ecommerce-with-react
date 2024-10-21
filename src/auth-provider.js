@@ -1,4 +1,5 @@
 import client from './utils/api-client'
+import { jwtDecode } from "jwt-decode";
 // pretend this is firebase, netlify, or auth0's code.
 // you shouldn't have to implement something like this in your own app
 
@@ -11,17 +12,28 @@ async function getToken() {
   return window.localStorage.getItem(localStorageKey)
 }
 
-function handleUserResponse({ user }) {
-  window.localStorage.setItem(localStorageKey, user.token)
-  return user
+function handleUserResponse({ token }) {
+  window.localStorage.setItem(localStorageKey, token)
+  return jwtDecode(token)
 }
 
 function login({ username, password }) {
-  return client('auth/login', { username, password }).then(handleUserResponse)
+  return client('auth/login', { data: { username, password } }).then(handleUserResponse)
 }
 
 async function logout() {
   window.localStorage.removeItem(localStorageKey)
 }
 
-export { getToken, login, logout, localStorageKey }
+async function initalUserWithTokenInLocalStorage() {
+  getToken().then(
+    (token) => {
+      if (token)
+        return handleUserResponse({ token })
+      else
+        return null
+    }
+  )
+}
+
+export { getToken, login, logout, localStorageKey, initalUserWithTokenInLocalStorage }

@@ -1,17 +1,23 @@
 import { Form, FormGroup, Col, Label, Input, Button } from 'reactstrap'
-
-const submitLogin = (e) => {
-    e.preventDefault()
-    if (e.target[0].value && e.target[1].value)
-        console.log(e.target[0].value)
-}
+import { useAuth } from '../context/auth-context'
 
 function Login() {
+    const { login, user } = useAuth()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (e.target[0].value && e.target[1].value)
+            login({ username: e.target[0].value, password: e.target[1].value })
+    }
+
     return <div className='container-lg rounded border p-3'>
+        <div>
+            {user}
+        </div>
         <div className='pb-3 fs-2 fw-bold text-primary' >
             Login
         </div>
-        <Form onSubmit={submitLogin}>
+        <Form onSubmit={handleSubmit}>
             <FormGroup row>
                 <Label
                     for="exampleUsername"

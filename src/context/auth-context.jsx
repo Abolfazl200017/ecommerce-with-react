@@ -7,17 +7,29 @@ import FullPageErrorFallback from '../screens/full-page-error-fallback'
 const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
 
+async function bootstrapAppData() {
+    const user = await auth.initalUserWithTokenInLocalStorage()
+
+    return user
+}
+
 function AuthProvider(props) {
     const {
         data: user,
         status,
         error,
-        // isLoading,
-        // isIdle,
+        isLoading,
+        isIdle,
         isError,
         isSuccess,
         setData,
+        run,
     } = useAsync()
+
+    React.useEffect(() => {
+        const appDataPromise = bootstrapAppData()
+        run(appDataPromise)
+    }, [run])
 
     const login = React.useCallback(
         form => auth.login(form).then(user => setData(user)),
@@ -30,7 +42,7 @@ function AuthProvider(props) {
 
     const value = React.useMemo(
         () => ({ user, login, logout }),
-        [login, logout, user],
+        [login, logout, user, isLoading],
     )
 
     // if (isLoading || isIdle) {
@@ -41,7 +53,7 @@ function AuthProvider(props) {
         return <FullPageErrorFallback error={error} />
     }
 
-    if (isSuccess) {
+    if (isSuccess || isLoading || isIdle) {
         return <AuthContext.Provider value={value} {...props} />
     }
 
