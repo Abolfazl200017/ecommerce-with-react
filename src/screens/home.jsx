@@ -114,7 +114,7 @@ function Home() {
                 </div>
             </div>
             <div>
-                <div className='row overflow-x-hidden' >
+                <div className='row overflow-x-hidden container-lg' >
                     {products.map((j, index) => {
                         return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap mt-3' >
                             <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />

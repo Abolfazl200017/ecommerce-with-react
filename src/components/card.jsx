@@ -1,8 +1,10 @@
 import { Card, CardBody, CardTitle, Button } from 'reactstrap'
 import PropTypes from 'prop-types';
+import star from '../assets/images/star.png'
+import add from '../assets/images/add-to-cart.png'
 
 function ProductCard({ jewelery, customStyle }) {
-    const { title, image } = jewelery
+    const { title, image, rating } = jewelery
     const { color, isList } = customStyle
     return <Card
         style={{
@@ -23,9 +25,23 @@ function ProductCard({ jewelery, customStyle }) {
                 {title ? title : 'title'}
             </CardTitle>
             <div>
-                <Button>
-                    Button
-                </Button>
+                <div className='d-flex px-3'>
+                    <img style={{ width: '25px', height: '25px' }} src={star} />
+                    <span className='ms-1 me-3'>
+                        {rating.rate}
+                    </span>
+                    <span>
+                        {rating.count}
+                    </span>
+                </div>
+                <div className='w-100 d-flex justify-content-between px-3 align-items-center'>
+                    <span className='d-flex align-items-center pe-3'>
+                        {jewelery.price}$
+                    </span>
+                    <Button color='warning' outline className='rounded-circle'>
+                        <img style={{ width: '25px', height: '25px' }} src={add} />
+                    </Button>
+                </div>
             </div>
         </CardBody>
     </Card>
