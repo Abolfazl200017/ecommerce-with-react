@@ -1,10 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import { Home } from './screens/home'
+import * as React from "react"
+import FullPageSpinner from './components/fullPageLoading';
 
 function App() {
   return (
-    <Home />
+    <React.Suspense fallback={<FullPageSpinner />}>
+      <Home />
+    </React.Suspense>
   )
 }
 

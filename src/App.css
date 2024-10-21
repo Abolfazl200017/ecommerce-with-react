@@ -9,7 +9,7 @@ a {
 }
 main {
   margin-top: 56px;
-  /* padding-top: 2rem; */
+  margin-bottom: 2rem;
 }
 .carousel {
   aspect-ratio: 2/1;

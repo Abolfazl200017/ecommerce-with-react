@@ -15,16 +15,13 @@ import Card from '../components/card'
 
 function useStateWithApiKey(endpoint) {
     const [state, setState] = React.useState([])
-    const callBack = React.useCallback(() => {
+    React.useEffect(() => {
         client(endpoint).then(
             (response) => {
                 setState(response)
             }
         )
-    })
-    React.useEffect(() => {
-        callBack()
-    }, [callBack])
+    }, [endpoint])
 
     return state
 }
@@ -123,9 +120,6 @@ function Home() {
                 </div>
             </div>
         </main>
-        <footer>
-            this is footer
-        </footer>
     </>
 }
 
