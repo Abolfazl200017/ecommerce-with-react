@@ -9,7 +9,7 @@ import img6 from '../assets/images/tags/six.jpg'
 import banner1 from '../assets/images/banner/one.webp'
 import banner2 from '../assets/images/banner/two.webp'
 
-import { client } from '../utils/api-client'
+import client from '../utils/api-client'
 import * as React from 'react'
 import Card from '../components/card'
 

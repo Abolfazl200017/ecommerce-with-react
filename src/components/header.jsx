@@ -37,7 +37,10 @@ function Header(args) {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
-                        <NavbarText>Simple Text</NavbarText>
+                        <div>
+                            <NavbarText>Simple Text</NavbarText>
+                            <RouterLink to="/login">Login</RouterLink>
+                        </div>
                     </Collapse>
                 </Navbar>
             </div>
