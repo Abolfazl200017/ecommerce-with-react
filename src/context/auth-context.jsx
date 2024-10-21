@@ -9,8 +9,7 @@ AuthContext.displayName = 'AuthContext'
 
 async function bootstrapAppData() {
     const user = await auth.initalUserWithTokenInLocalStorage()
-
-    return user
+    return { username: user.user }
 }
 
 function AuthProvider(props) {
@@ -42,7 +41,7 @@ function AuthProvider(props) {
 
     const value = React.useMemo(
         () => ({ user, login, logout }),
-        [login, logout, user, isLoading],
+        [login, logout, user, status],
     )
 
     // if (isLoading || isIdle) {

@@ -26,14 +26,9 @@ async function logout() {
 }
 
 async function initalUserWithTokenInLocalStorage() {
-  getToken().then(
-    (token) => {
-      if (token)
-        return handleUserResponse({ token })
-      else
-        return null
-    }
-  )
+  const token = await getToken()
+
+  return token ? handleUserResponse({ token }) : null
 }
 
 export { getToken, login, logout, localStorageKey, initalUserWithTokenInLocalStorage }

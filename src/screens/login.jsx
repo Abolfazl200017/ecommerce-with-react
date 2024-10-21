@@ -2,7 +2,7 @@ import { Form, FormGroup, Col, Label, Input, Button } from 'reactstrap'
 import { useAuth } from '../context/auth-context'
 
 function Login() {
-    const { login, user } = useAuth()
+    const { login } = useAuth()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -11,9 +11,6 @@ function Login() {
     }
 
     return <div className='container-lg rounded border p-3'>
-        <div>
-            {user}
-        </div>
         <div className='pb-3 fs-2 fw-bold text-primary' >
             Login
         </div>
