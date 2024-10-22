@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Collapse, Navbar, NavbarToggler, Nav, Spinner } from 'reactstrap'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
+import add from '../assets/images/add-to-cart.png'
 
 function UserProfileLink({ user, status, logout }) {
     if (status === 'resolved')
@@ -12,6 +13,9 @@ function UserProfileLink({ user, status, logout }) {
             </div>
         else
             return <div className='px-3 d-flex align-items-center'>
+                <RouterLink to='/basket' className='px-3'>
+                    <img style={{ width: '25px', height: '25px' }} src={add} />
+                </RouterLink>
                 <button onClick={logout} className='px-2 text-secondary bg-white border-0 outline-0'>
                     logout
                 </button>
