@@ -53,8 +53,10 @@ function useAsync(initialState) {
             safeSetState({ status: 'pending' })
             return promise.then(
                 data => {
-                    console.log(data)
-                    setData(data)
+                    if (data)
+                        setData(data)
+                    else
+                        safeSetState({ status: 'idle' })
                     return data
                 },
                 error => {
@@ -80,6 +82,7 @@ function useAsync(initialState) {
         data,
         run,
         reset,
+        safeSetState,
     }
 }
 

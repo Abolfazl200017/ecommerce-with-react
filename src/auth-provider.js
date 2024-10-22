@@ -14,7 +14,8 @@ async function getToken() {
 
 function handleUserResponse({ token }) {
   window.localStorage.setItem(localStorageKey, token)
-  return jwtDecode(token)
+  const user = jwtDecode(token)
+  return { username: user.user, token: token }
 }
 
 function login({ username, password }) {

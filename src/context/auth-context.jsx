@@ -9,7 +9,7 @@ AuthContext.displayName = 'AuthContext'
 
 async function bootstrapAppData() {
     const user = await auth.initalUserWithTokenInLocalStorage()
-    return { username: user.user }
+    return user ? { username: user.user } : null
 }
 
 function AuthProvider(props) {
@@ -23,6 +23,7 @@ function AuthProvider(props) {
         isSuccess,
         setData,
         run,
+        safeSetState,
     } = useAsync()
 
     React.useEffect(() => {
@@ -31,8 +32,18 @@ function AuthProvider(props) {
     }, [run])
 
     const login = React.useCallback(
-        form => auth.login(form).then(user => setData(user)),
-        [setData],
+        form => {
+            safeSetState({ status: 'pending' })
+
+            return auth.login(form).then(user => {
+                console.log('response', user)
+                setData(user)
+            }, (error) => {
+                console.log('error is ', error)
+                setData(null)
+            })
+        },
+        [safeSetState, setData],
     )
     const logout = React.useCallback(() => {
         auth.logout()
@@ -40,7 +51,7 @@ function AuthProvider(props) {
     }, [setData])
 
     const value = React.useMemo(
-        () => ({ user, login, logout }),
+        () => ({ user, login, logout, status }),
         [login, logout, user, status],
     )
 
