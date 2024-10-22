@@ -11,18 +11,12 @@ function ProductCard({ jewelery, customStyle }) {
     const { title, image, rating } = jewelery
     const { color, isList } = customStyle
     const { user, status } = useAuth()
-    const [card, setCard] = React.useState(() => readCard)
+    const card = readCard()
     const [isExist, setIsExist] = React.useState(() => Boolean(card[jewelery.id]))
-    const addToCard = () => {
+    const addToCard = React.useCallback(() => {
         setIsExist(true)
-
-        const newItem = { id: jewelery.id, quantity: 1 }
-        setCard({
-            ...card,
-            newItem
-        })
-        addProduct(jewelery.id)
-    }
+        addProduct({ id: jewelery.id })
+    }, [])
 
     return <Card
         style={{
@@ -58,7 +52,7 @@ function ProductCard({ jewelery, customStyle }) {
                     <span className='d-flex align-items-center pe-3'>
                         {jewelery.price}$
                     </span>
-                    {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : isExist ? 'nothing' : <Button color='warning' outline className='rounded-circle z-10' onClick={addToCard} >
+                    {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : isExist ? 'in basket' : <Button color='warning' outline className='rounded-circle z-10' onClick={addToCard} >
                         <img style={{ width: '25px', height: '25px' }} src={add} />
                     </Button>}
                 </div>

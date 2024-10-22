@@ -19,7 +19,7 @@ try {
     // ignore json parse error
 }
 
-async function addProduct({
+function addProduct({
     id,
 }) {
     if (listItems[id])
@@ -29,7 +29,7 @@ async function addProduct({
             id: id,
             quantity: 1,
         }
-        listItems = { ...[listItems, newItem] }
+        listItems[id] = newItem
     }
     persist()
 }
