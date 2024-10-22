@@ -9,7 +9,7 @@ AuthContext.displayName = 'AuthContext'
 
 async function bootstrapAppData() {
     const user = await auth.initalUserWithTokenInLocalStorage()
-    return user ? { username: user.user } : null
+    return user ? user : null
 }
 
 function AuthProvider(props) {
