@@ -4,6 +4,23 @@ import * as React from "react"
 import { readCard, addProduct } from '../test/data/basket'
 import client from '../utils/api-client'
 
+// eslint-disable-next-line react/prop-types
+function Quantity({ quantity }) {
+    const [state, setState] = React.useState(() => quantity)
+
+    return <div className='d-flex align-items-center'>
+        <button className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
+            -
+        </button>
+        <div className='px-3'>
+            {state}
+        </div>
+        <button className='rounded-circle bg-success text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
+            +
+        </button>
+    </div>
+}
+
 function Basket() {
     const { status, user } = useAuth()
     const [products, setProducts] = React.useState([])
@@ -28,9 +45,9 @@ function Basket() {
     if (status === 'idle' || status === 'pending' || !products.length)
         return <FullPageSpinner />
 
-    return <div className='container mx-auto border rounded mt-5 p-3'>
+    return <div className='container mx-auto border rounded mt-5 p-3 pb-0'>
         {products.map((p, index) => (
-            <div key={index} className='d-flex align-items-center justify-content-between'>
+            <div key={index} className='d-flex align-items-center justify-content-between mb-3'>
                 <div className='d-flex align-items-center'>
                     <div className='overflow-hidden rounded-circle me-3 border' style={{ width: '50px', height: '50px' }}>
                         <img src={p.image} className='object-fit-contain w-100 h-100' />
@@ -39,9 +56,7 @@ function Basket() {
                         {p.title}
                     </div>
                 </div>
-                <div>
-                    {p.quantity}
-                </div>
+                <Quantity quantity={p.quantity} />
             </div>
         ))}
     </div>

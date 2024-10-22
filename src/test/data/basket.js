@@ -34,8 +34,21 @@ function addProduct({
     persist()
 }
 
+function decreaseProductQuantity({
+    id
+}) {
+    if (!listItems[id])
+        return
+    else {
+        if (listItems[id].quantity > 0)
+            listItems[id].quantity -= 1
+        else
+            delete listItems[id]
+    }
+}
+
 function readCard() {
     return listItems
 }
 
-export { load, readCard, addProduct, reset }
+export { load, readCard, addProduct, reset, decreaseProductQuantity }
