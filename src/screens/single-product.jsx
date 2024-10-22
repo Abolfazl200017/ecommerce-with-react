@@ -3,11 +3,13 @@ import * as React from "react";
 import client from '../utils/api-client';
 import FullPageSpinner from '../components/full-page-loading';
 import star from '../assets/images/star.png'
-import { Button } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
+import { useAuth } from '../context/auth-context';
 
 function SingleProduct() {
     const { id } = useParams();
     const [product, setProduct] = React.useState(null)
+    const { user, status } = useAuth()
 
     React.useEffect(() => {
         client(`products/${id}`).then(setProduct)
@@ -41,7 +43,7 @@ function SingleProduct() {
                                 </span>
                             </div>
                         </div>
-                        <Button color='primary' className='mt-3' >Add to basket</Button>
+                        {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : <Button color='primary' className='mt-3' >Add to basket</Button>}
                     </div>
                 </div>
             </div>
