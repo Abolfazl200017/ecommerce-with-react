@@ -19,7 +19,7 @@ function App() {
 function AppRoutes() {
   return <Routes>
     <Route exact path="/" element={<Home />} />
-    <Route path="/single" element={<SingleProduct />} />
+    <Route path="/product/:id" element={<SingleProduct />} />
     <Route path="*" element={<div>this is 404 error in future it will be more beautiful</div>} />
   </Routes>
 }
