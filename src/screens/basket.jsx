@@ -28,8 +28,22 @@ function Basket() {
     if (status === 'idle' || status === 'pending' || !products.length)
         return <FullPageSpinner />
 
-    return <div className='container mx-auto border rounded mt-5'>
-        {JSON.stringify(products)}
+    return <div className='container mx-auto border rounded mt-5 p-3'>
+        {products.map((p, index) => (
+            <div key={index} className='d-flex align-items-center justify-content-between'>
+                <div className='d-flex align-items-center'>
+                    <div className='overflow-hidden rounded-circle me-3 border' style={{ width: '50px', height: '50px' }}>
+                        <img src={p.image} className='object-fit-contain w-100 h-100' />
+                    </div>
+                    <div className='me-3'>
+                        {p.title}
+                    </div>
+                </div>
+                <div>
+                    {p.quantity}
+                </div>
+            </div>
+        ))}
     </div>
 }
 
