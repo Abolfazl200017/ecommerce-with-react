@@ -1,11 +1,29 @@
-import { Card, CardBody, CardTitle, Button } from 'reactstrap'
+import { Card, CardBody, CardTitle, Button, Spinner } from 'reactstrap'
 import PropTypes from 'prop-types';
 import star from '../assets/images/star.png'
 import add from '../assets/images/add-to-cart.png'
+import { useAuth } from '../context/auth-context';
+import { readCard, addProduct } from '../test/data/basket'
+import * as React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
 function ProductCard({ jewelery, customStyle }) {
     const { title, image, rating } = jewelery
     const { color, isList } = customStyle
+    const { user, status } = useAuth()
+    const [card, setCard] = React.useState(() => readCard)
+    const [isExist, setIsExist] = React.useState(() => Boolean(card[jewelery.id]))
+    const addToCard = () => {
+        setIsExist(true)
+
+        const newItem = { id: jewelery.id, quantity: 1 }
+        setCard({
+            ...card,
+            newItem
+        })
+        addProduct(jewelery.id)
+    }
+
     return <Card
         style={{
             width: '100%',
@@ -21,9 +39,11 @@ function ProductCard({ jewelery, customStyle }) {
             />
         </div>
         <CardBody className='d-flex flex-column justify-content-between'>
-            <CardTitle tag="h6">
-                {title ? title : 'title'}
-            </CardTitle>
+            <RouterLink to={`/product/${jewelery.id}`} >
+                <CardTitle tag="h6">
+                    {title ? title : 'title'}
+                </CardTitle>
+            </RouterLink>
             <div>
                 <div className='d-flex px-3'>
                     <img style={{ width: '25px', height: '25px' }} src={star} />
@@ -34,13 +54,13 @@ function ProductCard({ jewelery, customStyle }) {
                         {rating.count}
                     </span>
                 </div>
-                <div className='w-100 d-flex justify-content-between px-3 align-items-center'>
+                <div className='w-100 d-flex justify-content-between px-3 pb-5 align-items-center'>
                     <span className='d-flex align-items-center pe-3'>
                         {jewelery.price}$
                     </span>
-                    <Button color='warning' outline className='rounded-circle'>
+                    {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : isExist ? 'nothing' : <Button color='warning' outline className='rounded-circle z-10' onClick={addToCard} >
                         <img style={{ width: '25px', height: '25px' }} src={add} />
-                    </Button>
+                    </Button>}
                 </div>
             </div>
         </CardBody>

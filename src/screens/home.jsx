@@ -12,7 +12,7 @@ import banner2 from '../assets/images/banner/two.webp'
 import client from '../utils/api-client'
 import * as React from 'react'
 import Card from '../components/card'
-import { Link as RouterLink } from 'react-router-dom'
+
 
 function useStateWithApiKey(endpoint) {
     const [state, setState] = React.useState([])
@@ -105,9 +105,7 @@ function Home() {
                     <div className='row overflow-x-hidden flex-nowrap' >
                         {jeweleries.map((j, index) => {
                             return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap' >
-                                <RouterLink to={`/product/${j.id}`} >
-                                    <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
-                                </RouterLink>
+                                <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
                             </div>
                         })}
                     </div>
@@ -117,9 +115,7 @@ function Home() {
                 <div className='row overflow-x-hidden container-lg' >
                     {products.map((j, index) => {
                         return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap mt-3' >
-                            <RouterLink to={`/product/${j.id}`} >
-                                <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
-                            </RouterLink>
+                            <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
                         </div>
                     })}
                 </div>

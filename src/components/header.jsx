@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react'
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Spinner } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, Nav, Spinner } from 'reactstrap'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
 
@@ -37,25 +37,9 @@ function Header(args) {
                     <NavbarToggler onClick={toggle} />
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="me-auto" navbar>
-                            <NavItem>
+                            {/* <NavItem>
                                 <NavLink href="/components/">Components</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">
-                                    {user ? user.username : ''}
-                                </NavLink>
-                            </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Options
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem>Option 1</DropdownItem>
-                                    <DropdownItem>Option 2</DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>Reset</DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            </NavItem> */}
                         </Nav>
                         <div className='d-flex align-items-center justify-content-center'>
                             <UserProfileLink user={user} status={status} logout={logout} />
