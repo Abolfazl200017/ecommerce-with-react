@@ -17,14 +17,19 @@ function Basket() {
     }, [status, user])
 
     React.useEffect(() => {
-        client('products').then(setProducts)
+        client('products').then((response) => {
+            const list = response.filter((p) => card[p.id])
+            setProducts(list.map((l) => {
+                return { ...l, quantity: card[l.id].quantity }
+            }))
+        })
     }, [])
 
     if (status === 'idle' || status === 'pending' || !products.length)
         return <FullPageSpinner />
 
     return <div className='container mx-auto border rounded mt-5'>
-        {JSON.stringify(card)}
+        {JSON.stringify(products)}
     </div>
 }
 
