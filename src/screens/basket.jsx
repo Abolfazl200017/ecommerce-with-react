@@ -5,16 +5,17 @@ import { readCard, addProduct } from '../test/data/basket'
 import client from '../utils/api-client'
 
 // eslint-disable-next-line react/prop-types
-function Quantity({ quantity }) {
+function Quantity({ quantity, deleteProduct, id }) {
     const [state, setState] = React.useState(() => quantity)
 
     const increase = () => setState(state + 1)
     const decrease = () => setState(state - 1)
+    const del = () => deleteProduct(id)
 
     return <div className='d-flex align-items-center'>
         {state > 1 ? <button onClick={decrease} className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
             -
-        </button> : <button onClick={increase} className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
+        </button> : <button onClick={del} className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
             d
         </button>}
 
@@ -31,6 +32,10 @@ function Basket() {
     const { status, user } = useAuth()
     const [products, setProducts] = React.useState([])
     const card = (readCard())
+
+    const deleteProduct = (id) => {
+        setProducts(products.filter(p => p.id != id))
+    }
 
     React.useEffect(() => {
         if (status === 'resolved' && !user) {
@@ -62,7 +67,7 @@ function Basket() {
                         {p.title}
                     </div>
                 </div>
-                <Quantity quantity={p.quantity} />
+                <Quantity quantity={p.quantity} deleteProduct={deleteProduct} id={p.id} />
             </div>
         ))}
     </div>
