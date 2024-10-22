@@ -1,24 +1,31 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react'
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText, Spinner } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Spinner } from 'reactstrap'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
 
-// eslint-disable-next-line react/prop-types
-function UserProfileLink({ user, status }) {
+function UserProfileLink({ user, status, logout }) {
     if (status === 'resolved')
         if (!user)
-            return <RouterLink to="/login">Login</RouterLink>
+            return <div className='px-3'>
+                <RouterLink to="/login">Login</RouterLink>
+            </div>
         else
-            return <span>
-                {user.username}
-            </span>
+            return <div className='px-3 d-flex align-items-center'>
+                <button onClick={logout} className='px-2 text-secondary bg-white border-0 outline-0'>
+                    logout
+                </button>
+                <span className='user-select-none'>
+                    {user.username}
+                </span>
+            </div>
     return <Spinner />
 }
 
 function Header(args) {
     const [isOpen, setIsOpen] = React.useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    const { user, status } = useAuth()
+    const { user, status, logout } = useAuth()
 
     return (
         <header className='fixed-top left-0 vw-100 d-flex justify-content-center bg-white z-10'>
@@ -50,9 +57,8 @@ function Header(args) {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
-                        <div className='d-flex align-items-center'>
-                            <NavbarText>Simple Text</NavbarText>
-                            <UserProfileLink user={user} status={status} />
+                        <div className='d-flex align-items-center justify-content-center'>
+                            <UserProfileLink user={user} status={status} logout={logout} />
                         </div>
                     </Collapse>
                 </Navbar>
