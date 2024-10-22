@@ -5,11 +5,18 @@ import FullPageSpinner from '../components/full-page-loading';
 import star from '../assets/images/star.png'
 import { Button, Spinner } from 'reactstrap';
 import { useAuth } from '../context/auth-context';
+import { readCard, addProduct } from '../test/data/basket'
 
 function SingleProduct() {
     const { id } = useParams();
     const [product, setProduct] = React.useState(null)
     const { user, status } = useAuth()
+    const card = readCard()
+    const [isExist, setIsExist] = React.useState(() => Boolean(card[id]))
+    const addToCard = React.useCallback(() => {
+        setIsExist(true)
+        addProduct({ id: id })
+    }, [])
 
     React.useEffect(() => {
         client(`products/${id}`).then(setProduct)
@@ -43,7 +50,7 @@ function SingleProduct() {
                                 </span>
                             </div>
                         </div>
-                        {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : <Button color='primary' className='mt-3' >Add to basket</Button>}
+                        {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : isExist ? 'in basket' : <Button onClick={addToCard} color='primary' className='mt-3' >Add to basket</Button>}
                     </div>
                 </div>
             </div>

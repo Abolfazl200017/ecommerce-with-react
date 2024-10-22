@@ -44,7 +44,6 @@ function decreaseProductQuantity({
     if (!listItems[id])
         return
     else {
-        console.log('before', listItems)
         if (listItems[id].quantity > 1)
             listItems[id].quantity -= 1
         else
