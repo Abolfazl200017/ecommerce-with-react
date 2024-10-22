@@ -11,6 +11,9 @@ main {
   margin-top: 56px;
   margin-bottom: 2rem;
 }
+header{
+  min-height: 56px;
+}
 .carousel {
   aspect-ratio: 2/1;
 }

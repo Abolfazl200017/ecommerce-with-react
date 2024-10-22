@@ -7,6 +7,7 @@ import { Header } from './components/header'
 import SingleProduct from './screens/single-product';
 import { Route, Routes } from 'react-router-dom'
 import { load } from './test/data/basket'
+import Basket from './screens/basket';
 
 function App() {
   load()
@@ -23,6 +24,7 @@ function AppRoutes() {
   return <Routes>
     <Route exact path="/" element={<Home />} />
     <Route path="/product/:id" element={<SingleProduct />} />
+    <Route path="/basket" element={<Basket />} />
     <Route path="*" element={<div>this is 404 error in future it will be more beautiful</div>} />
   </Routes>
 }
