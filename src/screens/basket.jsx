@@ -10,15 +10,15 @@ function Quantity({ quantity, deleteProduct, id }) {
 
     const increase = () => {
         setState(state + 1)
-        addProduct(id)
+        addProduct({ id })
     }
     const decrease = () => {
         setState(state - 1)
-        decreaseProductQuantity(id)
+        decreaseProductQuantity({ id })
     }
     const del = () => {
         deleteProduct(id)
-        decreaseProductQuantity(id)
+        decreaseProductQuantity({ id })
     }
 
     return <div className='d-flex align-items-center'>

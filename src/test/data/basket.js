@@ -23,7 +23,10 @@ function addProduct({
     id,
 }) {
     if (listItems[id]) {
-        console.log(listItems, id, listItems[id])
+        console.log(listItems)
+        console.log(id)
+        console.log(listItems[id])
+
         listItems[id].quantity += 1
     } else {
         const newItem = {
@@ -41,10 +44,12 @@ function decreaseProductQuantity({
     if (!listItems[id])
         return
     else {
-        if (listItems[id].quantity > 0)
+        console.log('before', listItems)
+        if (listItems[id].quantity > 1)
             listItems[id].quantity -= 1
         else
             delete listItems[id]
+        persist()
     }
 }
 
