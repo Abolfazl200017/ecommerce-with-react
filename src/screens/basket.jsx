@@ -8,14 +8,20 @@ import client from '../utils/api-client'
 function Quantity({ quantity }) {
     const [state, setState] = React.useState(() => quantity)
 
+    const increase = () => setState(state + 1)
+    const decrease = () => setState(state - 1)
+
     return <div className='d-flex align-items-center'>
-        <button className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
+        {state > 1 ? <button onClick={decrease} className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
             -
-        </button>
+        </button> : <button onClick={increase} className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
+            d
+        </button>}
+
         <div className='px-3'>
             {state}
         </div>
-        <button className='rounded-circle bg-success text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
+        <button onClick={increase} className='rounded-circle bg-success text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
             +
         </button>
     </div>
