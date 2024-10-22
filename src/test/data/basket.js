@@ -22,9 +22,10 @@ try {
 function addProduct({
     id,
 }) {
-    if (listItems[id])
+    if (listItems[id]) {
+        console.log(listItems, id, listItems[id])
         listItems[id].quantity += 1
-    else {
+    } else {
         const newItem = {
             id: id,
             quantity: 1,

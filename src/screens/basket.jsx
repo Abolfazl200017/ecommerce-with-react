@@ -1,16 +1,25 @@
 import FullPageSpinner from '../components/full-page-loading'
 import { useAuth } from '../context/auth-context'
 import * as React from "react"
-import { readCard, addProduct } from '../test/data/basket'
+import { readCard, addProduct, decreaseProductQuantity } from '../test/data/basket'
 import client from '../utils/api-client'
 
 // eslint-disable-next-line react/prop-types
 function Quantity({ quantity, deleteProduct, id }) {
     const [state, setState] = React.useState(() => quantity)
 
-    const increase = () => setState(state + 1)
-    const decrease = () => setState(state - 1)
-    const del = () => deleteProduct(id)
+    const increase = () => {
+        setState(state + 1)
+        addProduct(id)
+    }
+    const decrease = () => {
+        setState(state - 1)
+        decreaseProductQuantity(id)
+    }
+    const del = () => {
+        deleteProduct(id)
+        decreaseProductQuantity(id)
+    }
 
     return <div className='d-flex align-items-center'>
         {state > 1 ? <button onClick={decrease} className='rounded-circle bg-danger text-white overflow-hidden d-flex align-items-center justify-content-center' style={{ width: '30px', height: '30px', }}>
@@ -30,7 +39,7 @@ function Quantity({ quantity, deleteProduct, id }) {
 
 function Basket() {
     const { status, user } = useAuth()
-    const [products, setProducts] = React.useState([])
+    const [products, setProducts] = React.useState(null)
     const card = (readCard())
 
     const deleteProduct = (id) => {
@@ -53,8 +62,13 @@ function Basket() {
         })
     }, [])
 
-    if (status === 'idle' || status === 'pending' || !products.length)
+    if (status === 'idle' || status === 'pending' || !products)
         return <FullPageSpinner />
+
+    if (!products.length)
+        return <h1>
+            Your basket is empty
+        </h1>
 
     return <div className='container mx-auto border rounded mt-5 p-3 pb-0'>
         {products.map((p, index) => (
