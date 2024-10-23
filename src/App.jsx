@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-loading-skeleton/dist/skeleton.css";
 import './App.css'
 import { Home } from './screens/home'
 import * as React from "react"

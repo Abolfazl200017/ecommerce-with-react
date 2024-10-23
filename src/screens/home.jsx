@@ -12,6 +12,7 @@ import banner2 from '../assets/images/banner/two.webp'
 import client from '../utils/api-client'
 import * as React from 'react'
 import Card from '../components/card'
+import CardSkeleton from '../components/skeleton/card-skeleton'
 
 
 function useStateWithApiKey(endpoint) {
@@ -103,21 +104,27 @@ function Home() {
                         Best sails for <span style={{ fontSize: '3rem' }}>💎</span>
                     </div>
                     <div className='row overflow-x-hidden flex-nowrap' >
-                        {jeweleries.map((j, index) => {
+                        {jeweleries.length ? jeweleries.map((j, index) => {
                             return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap' >
                                 <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
                             </div>
-                        })}
+                        }) : [1, 2, 3].map((n) => (
+                            <div key={n} className='col-12 col-md-4 col-lg-3 flex-nowrap' >
+                                <CardSkeleton />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
             <div>
                 <div className='row overflow-x-hidden container-lg' >
-                    {products.map((j, index) => {
+                    {products.length ? products.map((j, index) => {
                         return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap mt-3' >
                             <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
                         </div>
-                    })}
+                    }) : [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (<div key={n} className='col-12 col-md-4 col-lg-3 flex-nowrap mt-3' >
+                        <CardSkeleton />
+                    </div>))}
                 </div>
             </div>
         </main>
