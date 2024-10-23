@@ -16,7 +16,7 @@ function SingleProduct() {
     const addToCard = React.useCallback(() => {
         setIsExist(true)
         addProduct({ id: id })
-    }, [])
+    }, [id])
 
     React.useEffect(() => {
         client(`products/${id}`).then(setProduct)

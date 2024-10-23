@@ -97,7 +97,7 @@ function Basket() {
                 return { ...l, quantity: card[l.id].quantity }
             }))
         })
-    }, [])
+    }, [card])
 
     if (status === 'idle' || status === 'pending' || !products)
         return <FullPageSpinner />
