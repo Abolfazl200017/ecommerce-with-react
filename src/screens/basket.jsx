@@ -151,7 +151,7 @@ function Basket() {
         <div className='d-flex border-top w-100 my-3 pt-3'>
             <div className='user-select-none d-flex align-items-center'>
                 <div className='me-3'>
-                    Total price: {products.map((p) => p.price * p.quantity).reduce((partialSum, a) => partialSum + a, 0)}
+                    Total price: {Number(products.map((p) => p.price * p.quantity).reduce((partialSum, a) => partialSum + a, 0).toFixed(2))}
                 </div>
                 <div>
                     Number of items: {products.map((p) => p.quantity).reduce((partialSum, a) => partialSum + a, 0)}
