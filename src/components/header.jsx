@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react'
-import { Collapse, Navbar, NavbarToggler, Nav, Spinner } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, Nav, Spinner, NavItem, NavLink } from 'reactstrap'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
 import add from '../assets/images/add-to-cart.png'
@@ -41,9 +41,11 @@ function Header(args) {
                     <NavbarToggler onClick={toggle} />
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="me-auto" navbar>
-                            {/* <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
-                            </NavItem> */}
+                            <NavItem className='px-3'>
+                                <RouterLink to='/products' >
+                                    products
+                                </RouterLink>
+                            </NavItem>
                         </Nav>
                         <div className='d-flex align-items-center justify-content-center'>
                             <UserProfileLink user={user} status={status} logout={logout} />

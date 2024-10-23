@@ -13,7 +13,7 @@ function ProductList() {
     if (!products)
         return <FullPageSpinner />
 
-    return <div className='row overflow-x-hidden container-lg' >
+    return <div className='row overflow-x-hidden container-lg pt-5' >
         {products.map((j, index) => {
             return <div key={index} className='col-12 col-md-4 col-lg-3 flex-nowrap mt-3' >
                 <Card jewelery={j} customStyle={{ color: "#3f2405", isList: true }} />
