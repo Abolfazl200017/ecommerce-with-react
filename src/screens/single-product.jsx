@@ -5,18 +5,24 @@ import FullPageSpinner from '../components/full-page-loading';
 import star from '../assets/images/star.png'
 import { Button, Spinner } from 'reactstrap';
 import { useAuth } from '../context/auth-context';
-import { readCard, addProduct } from '../test/data/basket'
+import { readCard, addProduct, decreaseProductQuantity } from '../test/data/basket'
 
 function SingleProduct() {
     const { id } = useParams();
     const [product, setProduct] = React.useState(null)
     const { user, status } = useAuth()
     const card = readCard()
-    const [isExist, setIsExist] = React.useState(() => Boolean(card[id]))
+    const [numberInCard, setNumberInCard] = React.useState(() => card[id] ? card[id].quantity : 0)
+
     const addToCard = React.useCallback(() => {
-        setIsExist(true)
+        setNumberInCard(numberInCard + 1)
         addProduct({ id: id })
-    }, [id])
+    }, [id, numberInCard])
+
+    const decreaseNumberInCard = React.useCallback(() => {
+        setNumberInCard(numberInCard - 1)
+        decreaseProductQuantity({ id: id })
+    }, [id, numberInCard])
 
     React.useEffect(() => {
         client(`products/${id}`).then(setProduct)
@@ -50,7 +56,11 @@ function SingleProduct() {
                                 </span>
                             </div>
                         </div>
-                        {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : isExist ? 'in basket' : <Button onClick={addToCard} color='primary' className='mt-3' >Add to basket</Button>}
+                        {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : numberInCard > 0 ? <div className='d-flex align-items-center w-100 justify-content-center'>
+                            <Button onClick={decreaseNumberInCard} className='text-danger bg-white fw-bold fs-lg p-0 rounded-circle btn-outline-danger' style={{ width: '30px', height: '30px' }}>-</Button>
+                            <div className='px-3 user-select-none'>{numberInCard}</div>
+                            <Button onClick={addToCard} className='text-success bg-white fw-bold fs-lg p-0 rounded-circle btn-outline-success' style={{ width: '30px', height: '30px' }}>+</Button>
+                        </div> : <Button onClick={addToCard} color='primary' className='mt-3' >Add to basket</Button>}
                     </div>
                 </div>
             </div>
