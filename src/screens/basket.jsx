@@ -7,14 +7,16 @@ import { Alert, Button, Spinner } from 'reactstrap'
 import { jwtDecode } from 'jwt-decode'
 
 // eslint-disable-next-line react/prop-types
-function Quantity({ quantity, deleteProduct, id }) {
+function Quantity({ quantity, increaseProduct, decreaseProduct, deleteProduct, id }) {
     const [state, setState] = React.useState(() => quantity)
 
     const increase = () => {
+        increaseProduct(id)
         setState(state + 1)
         addProduct({ id })
     }
     const decrease = () => {
+        decreaseProduct(id)
         setState(state - 1)
         decreaseProductQuantity({ id })
     }
@@ -80,6 +82,22 @@ function Basket() {
         })
     }
 
+    const increaseProduct = (id) => {
+        setProducts(products.map(p => {
+            if (p.id === id)
+                return { ...p, quantity: p.quantity + 1 }
+            return p
+        }))
+    }
+
+    const decreaseProduct = (id) => {
+        setProducts(products.map(p => {
+            if (p.id === id)
+                return { ...p, quantity: p.quantity - 1 }
+            return p
+        }))
+    }
+
     const deleteProduct = (id) => {
         setProducts(products.filter(p => p.id != id))
     }
@@ -123,9 +141,23 @@ function Basket() {
                         {p.title}
                     </div>
                 </div>
-                <Quantity quantity={p.quantity} deleteProduct={deleteProduct} id={p.id} />
+                <div className='d-flex align-items-center'>
+                    <div className='user-select-none me-3'>{p.quantity * p.price}</div>
+                    <Quantity quantity={p.quantity} increaseProduct={increaseProduct} decreaseProduct={decreaseProduct} deleteProduct={deleteProduct} id={p.id} />
+                </div>
             </div>
         ))}
+
+        <div className='d-flex border-top w-100 my-3 pt-3'>
+            <div className='user-select-none d-flex align-items-center'>
+                <div className='me-3'>
+                    Total price: {products.map((p) => p.price * p.quantity).reduce((partialSum, a) => partialSum + a, 0)}
+                </div>
+                <div>
+                    Number of items: {products.map((p) => p.quantity).reduce((partialSum, a) => partialSum + a, 0)}
+                </div>
+            </div>
+        </div>
 
         {submitStatus === 'pending' ? <Spinner color='primary' className='mb-3' /> : <Button onClick={submit} color='primary mb-3'>
             submit order
