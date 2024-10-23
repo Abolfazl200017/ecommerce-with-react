@@ -48,7 +48,7 @@ function ProductCard({ jewelery, customStyle }) {
                         {rating.count}
                     </span>
                 </div>
-                <div className='w-100 d-flex justify-content-between px-3 pb-5 align-items-center'>
+                <div className='w-100 d-flex justify-content-between px-3 align-items-center'>
                     <span className='d-flex align-items-center pe-3'>
                         {jewelery.price}$
                     </span>
