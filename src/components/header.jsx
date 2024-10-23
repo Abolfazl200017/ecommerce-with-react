@@ -4,6 +4,7 @@ import { Collapse, Navbar, NavbarToggler, Nav, Spinner, NavItem } from 'reactstr
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
 import add from '../assets/images/add-to-cart.png'
+import logo from '../assets/images/logo.webp'
 
 function UserProfileLink({ user, status, logout }) {
     if (status === 'resolved')
@@ -36,7 +37,10 @@ function Header(args) {
             <div className='container-lg'>
                 <Navbar {...args} expand='md' >
                     <RouterLink to="/">
-                        Ecommerce
+                        <div className='d-flex align-items-center'>
+                            <img src={logo} style={{ height: '30px' }} className='me-2 rounded-circle' />
+                            <div>Ecommerce</div>
+                        </div>
                     </RouterLink>
                     <NavbarToggler onClick={toggle} />
                     <Collapse isOpen={isOpen} navbar>
