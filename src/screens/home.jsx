@@ -98,7 +98,7 @@ function Home() {
                 <Banner />
             </div>
             <div className='pt-3 pb-5 my-5 bg-gold' >
-                <div className='container-lg mx-auto' >
+                <div className='container-lg mx-auto' style={{ width: '95vw', maxWidth: '1536px' }} >
                     <div className='my-2 fs-1 fw-bold d-flex align-items-center' style={{ color: '#3f2405' }} >
                         Best sails for <span style={{ fontSize: '3rem' }}>💎</span>
                     </div>
