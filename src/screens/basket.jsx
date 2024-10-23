@@ -1,8 +1,10 @@
 import FullPageSpinner from '../components/full-page-loading'
 import { useAuth } from '../context/auth-context'
 import * as React from "react"
-import { readCard, addProduct, decreaseProductQuantity } from '../test/data/basket'
+import { readCard, addProduct, decreaseProductQuantity, reset } from '../test/data/basket'
 import client from '../utils/api-client'
+import { Alert, Button, Spinner } from 'reactstrap'
+import { jwtDecode } from 'jwt-decode'
 
 // eslint-disable-next-line react/prop-types
 function Quantity({ quantity, deleteProduct, id }) {
@@ -37,10 +39,46 @@ function Quantity({ quantity, deleteProduct, id }) {
     </div>
 }
 
+function getTodayDateYYYYMMDD() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Convert to 1-12 range
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function Basket() {
     const { status, user } = useAuth()
     const [products, setProducts] = React.useState(null)
     const card = (readCard())
+    const [message, setMessage] = React.useState(null)
+    const [submitStatus, setSubmitStatus] = React.useState('idle')
+
+    const submit = () => {
+        setSubmitStatus('pending')
+
+        const userId = jwtDecode(user.token).sub
+        const date = getTodayDateYYYYMMDD()
+        const products = Object.values(readCard()).map((c) => {
+            return { productId: c.id, quantity: c.quantity }
+        })
+
+        client('carts', {
+            data: {
+                userId,
+                date,
+                products,
+            }
+        }).then(() => {
+            setSubmitStatus('resolved')
+            setProducts([])
+            reset()
+            setMessage('success')
+            setTimeout(() => {
+                setMessage(null)
+            }, 5000);
+        })
+    }
 
     const deleteProduct = (id) => {
         setProducts(products.filter(p => p.id != id))
@@ -48,7 +86,6 @@ function Basket() {
 
     React.useEffect(() => {
         if (status === 'resolved' && !user) {
-            console.log('redirect')
             window.location.href = '/'
         }
     }, [status, user])
@@ -66,9 +103,14 @@ function Basket() {
         return <FullPageSpinner />
 
     if (!products.length)
-        return <h1>
-            Your basket is empty
-        </h1>
+        return <>
+            <Alert isOpen={message === 'success'} className='position-fixed z-10' style={{ bottom: '30px' }} >
+                {`Your cart added successfully :)`}
+            </Alert>
+            <h1>
+                Your basket is empty
+            </h1>
+        </>
 
     return <div className='container mx-auto border rounded mt-5 p-3 pb-0'>
         {products.map((p, index) => (
@@ -84,6 +126,11 @@ function Basket() {
                 <Quantity quantity={p.quantity} deleteProduct={deleteProduct} id={p.id} />
             </div>
         ))}
+
+        {submitStatus === 'pending' ? <Spinner color='primary' className='mb-3' /> : <Button onClick={submit} color='primary mb-3'>
+            submit order
+        </Button>}
+
     </div>
 }
 

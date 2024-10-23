@@ -23,10 +23,6 @@ function addProduct({
     id,
 }) {
     if (listItems[id]) {
-        console.log(listItems)
-        console.log(id)
-        console.log(listItems[id])
-
         listItems[id].quantity += 1
     } else {
         const newItem = {

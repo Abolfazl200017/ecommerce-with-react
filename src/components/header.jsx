@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react'
-import { Collapse, Navbar, NavbarToggler, Nav, Spinner, NavItem, NavLink } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, Nav, Spinner, NavItem } from 'reactstrap'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
 import add from '../assets/images/add-to-cart.png'
