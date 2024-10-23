@@ -57,7 +57,7 @@ function ProductCard({ jewelery, customStyle }) {
                 </div>
                 <div className='w-100 d-flex justify-content-between px-3 pt-3 align-items-center'>
                     <span className='d-flex align-items-center pe-3'>
-                        {jewelery.price * numberInCard}$
+                        {numberInCard ? jewelery.price * numberInCard : jewelery.price}$
                     </span>
                     {status === 'idle' || status === 'pending' ? <Spinner /> : !user ? '' : numberInCard > 0 ? <div className='d-flex align-items-center w-100 justify-content-center'>
                         <Button onClick={decreaseNumberInCard} className='text-danger bg-white fw-bold fs-lg p-0 rounded-circle btn-outline-danger' style={{ width: '30px', height: '30px' }}>-</Button>
